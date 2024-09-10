@@ -1,56 +1,32 @@
-# El Arca de Noé - Sistema de Gestión Hotelera
-
+# Oliver Sales - El Arca De Noé (Gestión Hotelera)
+ 
+¡Bienvenido al sistema de gestión hotelera! Este proyecto está diseñado para ofrecer una solución integral en la administración de hoteles, y todo esto es posible gracias al trabajo de un equipo comprometido, donde cada miembro aporta su talento y experiencia.
+ 
+## Sobre nuestro Programador
+ 
+Uno de los programadores más talentosos de nuestro equipo ha sido el encargado de desarrollar la entidad **Reservación**. Su capacidad para gestionar grandes volúmenes de datos y optimizar procesos complejos ha sido clave para garantizar que las reservas de habitaciones se manejen de manera eficiente y sin errores. Con una atención al detalle impresionante, ha sido capaz de crear una solución robusta y fácil de usar para los usuarios.
+ 
 ## Descripción del Proyecto
+ 
+Este sistema de gestión hotelera es una **API Rest** que proporciona una plataforma completa para la gestión de hoteles, reservas, habitaciones y eventos. El sistema permite a los usuarios realizar reservas en tiempo real, gestionando la disponibilidad y el estado de las habitaciones de forma eficiente.
+ 
+### Funcionalidades Clave
+ 
+- **Gestión de Hoteles**: Registro y administración de la información detallada de los hoteles.
+- **Gestión de Habitaciones y Servicios Adicionales**: Control y gestión de habitaciones y servicios adicionales, con disponibilidad actualizada en tiempo real.
+- **Reservación de Habitaciones**: Sistema de reservas dinámico y flexible, que permite a los usuarios realizar, modificar y cancelar reservas de forma intuitiva y rápida.
+ 
+## Contribución del Programador
+ 
+El programador fue responsable de la creación de la entidad **Reservación**, que incluye:
+- **Gestión de Reservaciones**: Implementación de un sistema que permite a los huéspedes reservar habitaciones en tiempo real, con verificación de disponibilidad y actualización automática del estado de las habitaciones.
+- **Optimización de Procesos**: Integración de lógicas que facilitan la modificación y cancelación de reservas, asegurando una experiencia de usuario sin fricciones.
+- **Seguridad y Consistencia**: Garantizando que las reservas sean procesadas de manera segura y evitando posibles conflictos de disponibilidad, brindando confianza tanto a los administradores como a los huéspedes.
+ 
+---
+ 
+Gracias a su dedicación y experiencia, la funcionalidad de reservas del sistema no solo es confiable, sino también fácil de usar, brindando una experiencia de usuario fluida y sin complicaciones. ¡Este proyecto sigue avanzando a pasos agigantados gracias a contribuciones como la suya!
+ 
+---
 
-**El Arca de Noé** es una plataforma centralizada de gestión hotelera diseñada para ofrecer una experiencia completa de administración de hoteles, habitaciones y eventos asociados. La plataforma permite a los usuarios buscar y reservar hoteles, visualizar la disponibilidad de habitaciones, y gestionar eventos como conferencias y bodas, todo desde un solo lugar.
-
-El objetivo principal del proyecto es proporcionar la base lógica para futuras expansiones que permitan una administración eficiente de hoteles y una experiencia de usuario sin fricciones para clientes y administradores.
-
-## Funcionalidades Principales
-
-### 1. Gestión de Hoteles y Habitaciones:
-- **Registro y administración de hoteles**: Incluye información detallada como dirección, categoría, precios de las habitaciones y servicios adicionales.
-- **Inventario actualizado** de habitaciones: Con detalles sobre tipo de habitación, capacidad y fechas de disponibilidad.
-
-### 2. Gestión de Eventos:
-- **Programación y administración de eventos**: Posibilidad de gestionar eventos como conferencias, bodas y reuniones.
-- **Asignación de recursos y servicios** adicionales según las necesidades del evento.
-
-### 3. Generación de Informes:
-- **Informes de demanda** de hoteles: Estadísticas sobre los hoteles más solicitados y el nivel de ocupación.
-- **Reportes detallados** de reservaciones realizadas en cada hotel.
-
-## Funcionalidades para Usuarios
-
-- Registro de usuarios en la plataforma.
-- Búsqueda y reserva de hoteles y habitaciones.
-- Visualización de disponibilidad de habitaciones y eventos programados.
-- Acceso al historial de reservaciones y servicios utilizados.
-- Edición o eliminación de cuentas de usuario.
-- Funcionalidades orientadas a mejorar la experiencia del usuario.
-
-## Funcionalidades para Administradores de Plataforma
-
-- Gestión de usuarios registrados.
-- CRUD de nuevos hoteles: Permite agregar, actualizar o eliminar hoteles de manera eficiente.
-- Acceso a estadísticas sobre la demanda de hoteles y el rendimiento general de las operaciones.
-
-## Funcionalidades para Administradores de Hotel
-
-- Consulta de todas las reservaciones realizadas en el hotel.
-- Búsqueda de información de usuarios hospedados o con reservación.
-- Verificación en tiempo real de la disponibilidad de habitaciones.
-- Generación de facturas al finalizar la estadía, incluyendo cargos por servicios adicionales.
-
-## Consideraciones Importantes
-
-- **Experiencia de usuario**: La aplicación está diseñada para ser altamente funcional y fácil de usar, tanto para usuarios como para administradores.
-- **Integridad de datos**: El software incluye validaciones estrictas para garantizar la consistencia y precisión de los datos.
-- **Escalabilidad**: El sistema está preparado para futuras expansiones que puedan integrar más funcionalidades y optimizaciones.
-
-## Profesores
-
-- **Josué Noj**
-- **Braulio Echeverría**
-
-![LOGO ARCA DE NOE](https://github.com/user-attachments/assets/b39368ef-6348-4c70-a985-fb977c7978fa)
+![Multimedia (2)](https://github.com/user-attachments/assets/0ea8b550-e592-4078-bee3-a068f6992e06)
