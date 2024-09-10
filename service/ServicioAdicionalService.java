@@ -28,7 +28,7 @@ public class ServicioAdicionalService implements IServicioAdicionalService{
 
     @Override
     public ServicioAdicional saveServicio(ServicioAdicional servicioAdicional) {
-        return servicioAdicionalRepository.save(ServicioAdicional);
+        return servicioAdicionalRepository.save(servicioAdicional);
     }
 
     @Override
