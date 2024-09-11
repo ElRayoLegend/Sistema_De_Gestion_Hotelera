@@ -8,4 +8,5 @@ public interface IEventService {
     Event registerEvent(Event event);
     void deleteEvent(long idEvents);
     Event updateEvent(Long id, Event updatedEvent);
+    
 }
