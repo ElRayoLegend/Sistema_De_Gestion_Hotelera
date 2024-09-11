@@ -1,16 +1,19 @@
 package com.gestionelarca.system.model;
 
-import com.gestionelarca.system.utils.Rol;
+import java.io.ObjectInputFilter.Status;
+import java.sql.Date;
 
-import jakarta.persistence.Column;
+import com.gestionelarca.system.utils.StatusRoom;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,25 +22,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idRoom;
     @NotBlank
-    private String phoneNumber;
-    @NotBlank
-    private String name;
-    @NotBlank
-    private String surname;
-    @NotBlank
-    @Column(unique = true)
-    private String username;
-    @Email
-    @NotBlank
-    @Column(unique = true)
-    private String email;
-    @NotBlank
-    private String password;
+    private String type;
+    @NotNull
+    private Integer capacity;
+    @NotNull
+    @FutureOrPresent
+    private Date avaible_date;
     @Enumerated(EnumType.STRING)
-    private Rol rol;
+    private StatusRoom StatusRoom;
+
 }
