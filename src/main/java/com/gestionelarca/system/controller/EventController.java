@@ -1,6 +1,7 @@
 package com.gestionelarca.system.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gestionelarca.system.DTO.EventsaveDTO;
 import com.gestionelarca.system.model.Event;
 import com.gestionelarca.system.service.EventService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
-@RequestMapping("/gestionElArca/v1/auth/event/")
+@RequestMapping("/gestionElArca/v1/event")
 public class EventController {
     @Autowired
     EventService eventService;
-
+    
 
     @GetMapping()
     public ResponseEntity<?> getMethodoName(){
@@ -50,18 +54,18 @@ public class EventController {
         }
     }
 
+
+
 // Agregar
     @PostMapping()
 
-    public ResponseEntity <?> rejister(@RequestBody Event event){
+    public ResponseEntity <?> rejister ( @Valid @RequestBody EventsaveDTO eventsaveDTO){
         Map<String, Object> res = new  HashMap<>();
         try {
-            Long idEvent = null;
-            event.setIdEvents(idEvent);
-
-            eventService.registerEvent(event);
-            res.put("message", "Evento guardado exitosamente ");
-            return ResponseEntity.ok().body(res);
+            Event event = eventService.registerEvent(eventsaveDTO);
+            res.put("message", "Evento Agregado exitosamente");
+            res.put("event", event);
+            return ResponseEntity.ok(res);
         } catch (Exception e) {
             res.put("message", "Error al guardar el evento, intente de nuevo más tarde");
             res.put("error", e.getMessage());
@@ -70,7 +74,10 @@ public class EventController {
 
     }
 
-//eliminar
+
+
+
+//eliminar 
     @DeleteMapping("/deleteEvent/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
         Map<String, Object> res = new HashMap<>();
@@ -92,14 +99,14 @@ public class EventController {
     }
 
 
-    //editar
-        @PutMapping("/editEvent/{id}")
-    public ResponseEntity<?> updateEvent(@PathVariable("id") Long id, @RequestBody Event event) {
+// editar pero le tenes que pasar todos los datos 
+    @PutMapping("/editEvent/{idEvent}")
+    public ResponseEntity<?> updateEvent(@PathVariable("idEvent") Long id, @RequestBody Event event) {
         Map<String, Object> res = new HashMap<>();
         try {
             Event updatedEvent = eventService.updateEvent(id, event);
             if (updatedEvent != null) {
-                res.put("message", "Evento actualizado exitosamente");
+                res.put("message", "Evento actualisado exitosamente");
                 res.put("event", updatedEvent);
                 return ResponseEntity.ok().body(res);
             } else {
@@ -112,20 +119,22 @@ public class EventController {
             return ResponseEntity.internalServerError().body(res);
         }
     }
+    
 
-//Buscar
-    @GetMapping("/findEvent/{id}")
-    public ResponseEntity<?> getEventById(@PathVariable("id") Long id) {
+
+//Buscar evento por id de hotel
+    @GetMapping("/findEvent/{idHotel}")
+    public ResponseEntity<?> getEventById(@PathVariable Long idHotel) {
         Map<String, Object> res = new HashMap<>();
         try {
       
-            Event event = eventService.getEvent(id);
-            if (event != null) {
-                res.put("event", event);
-                return ResponseEntity.ok().body(res);
+            List<Event> event = eventService.myEvent(idHotel);
+            if (event == null || event.isEmpty()) {
+                res.put("message", "El hotel no tiene eventos");
+                return ResponseEntity.status(404).body(res);
             } else {
                 res.put("message", "Evento no encontrado");
-                return ResponseEntity.status(404).body(res);
+                return ResponseEntity.ok(event);
             }
         } catch (Exception e) {
             res.put("message", "Error al buscar el evento, intente de nuevo más tarde");
