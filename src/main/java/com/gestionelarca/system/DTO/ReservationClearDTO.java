@@ -1,0 +1,19 @@
+package com.gestionelarca.system.DTO;
+
+import java.sql.Timestamp;
+
+import com.gestionelarca.system.utils.Status;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationClearDTO {
+    private long id_Reservation;
+    private Timestamp date_start;
+    private Timestamp date_end;
+    private Status status;
+}
