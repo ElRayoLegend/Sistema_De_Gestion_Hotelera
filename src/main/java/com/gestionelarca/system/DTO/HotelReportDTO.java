@@ -1,5 +1,7 @@
 package com.gestionelarca.system.DTO;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -11,4 +13,8 @@ public class HotelReportDTO {
     private Long total_occupied_rooms;
     @NotNull(message = "El total de ingresos no puede ir vacio")
     private Double total_revenue;
+    @NotNull(message = "La fecha no puede ir vacia")
+    private LocalDate date;
+    @NotNull(message = "No hay un hotel que analizar")
+    private Long hotelId;
 }

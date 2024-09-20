@@ -1,14 +1,12 @@
 package com.gestionelarca.system.model;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,21 +15,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class HotelReport {
+public class ServiceReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull
-    private Long total_reservations;
-    @NotNull
-    private Long total_occupied_rooms;
-    @NotNull
-    private Double total_revenue;
-    @NotNull
-    @PastOrPresent
-    private Timestamp date;
+    private Long idServiceReservation;
     @NotNull
     @ManyToOne
-    private Hotel hotel;
-
+    @JoinColumn(name = "id_Reservation")
+    private Reservation reservation;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_Service")
+    private AdditionalService additionalService;
+    @NotNull
+    private Integer amount;
+    @NotNull
+    private Double subtotal;
 }

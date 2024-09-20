@@ -33,6 +33,6 @@ public class Room {
     @FutureOrPresent
     private Date avaible_date;
     @Enumerated(EnumType.STRING)
-    private StatusRoom statusRoom;
+    private StatusRoom status;
 
 }

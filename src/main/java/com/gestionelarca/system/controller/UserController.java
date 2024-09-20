@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 // http://localhost:8085/
 
 @RestController
-@RequestMapping("/gestionElArca/v1/auth/user/")
+@RequestMapping("/gestionElArca/v1/user")
 public class UserController {
 
     @Autowired

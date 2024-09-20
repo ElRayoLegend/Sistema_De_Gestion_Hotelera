@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gestionelarca.system.model.Factura;
-import com.gestionelarca.system.service.FacturaService;
+import com.gestionelarca.system.model.AdditionalService;
+import com.gestionelarca.system.service.AdditionalServiceService;
 
 @RestController
-@RequestMapping("/gestionElArca/v1/auth/factura/")
-public class FacturaController {
+@RequestMapping("/gestionElArca/v1/additionalService")
+public class AdditionalServiceController {
     @Autowired
-    private FacturaService facturaService;
+    private AdditionalServiceService additionalServiceService;
 
     @GetMapping()
-    public List<Factura> listFactura() {
-        return facturaService.listFactura();
+    public List<AdditionalService> listAdditionalService() {
+        return additionalServiceService.listAdditionalService();
     }
 
     @PostMapping()
-    public ResponseEntity<Map<String, String>> addFactura(@RequestBody Factura factura) {
+    public ResponseEntity<Map<String, String>> addServicio(@RequestBody AdditionalService additionalService) {
         Map<String, String> res = new HashMap<>();
         try {
-            facturaService.saveFactura(factura);
+            additionalServiceService.saveService(additionalService);
             res.put("message", "Se guardo exitosamente");
             return ResponseEntity.ok(res);
 
@@ -46,11 +46,11 @@ public class FacturaController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<?> findFactura(@PathVariable Long id) {
+    public ResponseEntity<?> findService(@PathVariable Long id) {
         Map<String, String> res = new HashMap<>();
         try {
-            Factura factura = facturaService.findFactura(id);
-            return ResponseEntity.ok(factura);
+            AdditionalService additionalService = additionalServiceService.findService(id);
+            return ResponseEntity.ok(additionalService);
 
         } catch (Exception err) {
             System.out.println("Error, no se encontro el ID");
@@ -61,13 +61,13 @@ public class FacturaController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> editFactura(@PathVariable Long id, @RequestBody Factura facturaReceived){
+    public ResponseEntity<?> editService(@PathVariable Long id, @RequestBody AdditionalService additionalServiceReceived){
         Map<String, String> res = new HashMap<>();
         try {
-            Factura factura = facturaService.findFactura(id);
-            factura.setEmission(facturaReceived.getEmission());
-            factura.setTotal(facturaReceived.getTotal());
-            facturaService.saveFactura(factura);
+            AdditionalService additionalService = additionalServiceService.findService(id);
+            additionalService.setName(additionalServiceReceived.getName());
+            additionalService.setPrice(additionalServiceReceived.getPrice());
+            additionalServiceService.saveService(additionalService);
             res.put("message", "Se actualizo la informacion exitosamente");
             return ResponseEntity.ok(res);
         } catch (Exception err) {
@@ -79,11 +79,11 @@ public class FacturaController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Map<String, String>> deleteFactura(@PathVariable Long id){
+    public ResponseEntity<Map<String, String>> deleteService(@PathVariable Long id){
         Map<String, String> res = new HashMap<>();
         try {
-            Factura factura = facturaService.findFactura(id);
-            facturaService.deleteFactura(factura);
+            AdditionalService additionalService = additionalServiceService.findService(id);
+            additionalServiceService.deleteService(additionalService);
             res.put("message", "Se elimino exitosamente");
             return ResponseEntity.ok(res);
         } catch (Exception err) {
@@ -93,5 +93,4 @@ public class FacturaController {
             return ResponseEntity.internalServerError().body(res);
         }
     }
-
 }
