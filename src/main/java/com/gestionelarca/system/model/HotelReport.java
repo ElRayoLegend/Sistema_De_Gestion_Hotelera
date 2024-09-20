@@ -1,11 +1,12 @@
 package com.gestionelarca.system.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,9 @@ public class HotelReport {
     private Double total_revenue;
     @NotNull
     @PastOrPresent
-    private Date date;
+    private Timestamp date;
+    @NotNull
+    @ManyToOne
+    private Hotel hotel;
+
 }
