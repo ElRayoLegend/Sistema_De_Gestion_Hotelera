@@ -1,6 +1,5 @@
 package com.gestionelarca.system.model;
 
-import java.io.ObjectInputFilter.Status;
 import java.sql.Date;
 
 import com.gestionelarca.system.utils.StatusRoom;
@@ -34,6 +33,6 @@ public class Room {
     @FutureOrPresent
     private Date avaible_date;
     @Enumerated(EnumType.STRING)
-    private StatusRoom StatusRoom;
+    private StatusRoom status;
 
 }

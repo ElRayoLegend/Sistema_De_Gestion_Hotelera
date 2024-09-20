@@ -19,11 +19,9 @@ import com.gestionelarca.system.model.Room;
 import com.gestionelarca.system.service.RoomService;
 
 @RestController
-@RequestMapping("/gestionElArca/v1/auth/room/")
+@RequestMapping("/gestionElArca/v1/room")
 public class RoomController{
-
-
-     @Autowired
+    @Autowired
     RoomService roomService;
 
     @GetMapping()
@@ -43,14 +41,11 @@ public class RoomController{
     public ResponseEntity<Map<String, String>> registerRoom(@RequestBody Room room) {
         Map<String, String> res = new HashMap<>();
         try {
-            
             roomService.registerRoom(room);
             res.put("message", "Habitacion guardada exitosamente");
             return ResponseEntity.ok(res);
 
         } catch (Exception err) {
-            System.out.println("Error, no se encontro el ID");
-            res.put("message", "Se guardo exitosamente");
             res.put("error", err.getMessage());
             return ResponseEntity.internalServerError().body(res);
         }
