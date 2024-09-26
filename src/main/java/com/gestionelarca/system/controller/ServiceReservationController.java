@@ -26,10 +26,15 @@ import com.gestionelarca.system.service.ServiceReservationService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/gestionElArca/v1/serviceReservation/")
+@RequestMapping("/gestionElArca/v1/serviceReservation")
 public class ServiceReservationController {
     @Autowired
     private ServiceReservationService serviceReservationService;
+
+    @GetMapping()
+    public List<ServiceReservation> listAdditionalService() {
+        return serviceReservationService.listRS();
+    }
 
     @GetMapping("/ByAdditionalService/{id_Service}")
     public ResponseEntity<?> additionalReservationsByReservation(@PathVariable Long id_Service) {

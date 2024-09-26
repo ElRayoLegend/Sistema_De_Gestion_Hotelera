@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.gestionelarca.system.model.Hotel;
 import com.gestionelarca.system.repository.HotelRepository;
+import com.gestionelarca.system.repository.RoomRepository;
 import com.gestionelarca.system.service.IService.IHotelService;
 
 @Service
 public class HotelService  implements IHotelService{
     @Autowired
     HotelRepository hotelRepository;
+
+    @Autowired
+    RoomRepository roomRepository;
 
     @Override
     public List<Hotel> listHotel() {

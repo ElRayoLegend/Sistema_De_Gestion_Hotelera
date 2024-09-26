@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gestionelarca.system.DTO.ReservationResponseDTO;
 import com.gestionelarca.system.DTO.ReservationSaveDTO;
 import com.gestionelarca.system.DTO.UserClearDTO;
+import com.gestionelarca.system.model.Hotel;
 import com.gestionelarca.system.model.Reservation;
 import com.gestionelarca.system.model.Room;
 import com.gestionelarca.system.model.User;
@@ -26,12 +27,17 @@ public class ReservationService implements IReservationService{
     UserService userService;
 
     @Autowired
+    HotelService hotelService;
+
+    @Autowired
     RoomService roomService;
 
     @Override
     public List<Reservation> listReservations(){
         return reservationRepository.findAll();
     }
+
+    
 
     @Override
     public Reservation seachReservations(Long id_Reservation){
@@ -100,6 +106,20 @@ public class ReservationService implements IReservationService{
         );
 
         return dto;
+    }
+
+
+
+    @Override
+    public List myReservation(Long userId) {
+        User user = userService.getUser(userId);
+        return reservationRepository.findByUser(user);
+    }
+
+    @Override
+    public List myHotel(Long hotelId) {
+        Hotel hotel = hotelService.getHotel(hotelId);
+        return reservationRepository.findByHotel(hotel);
     }
 
 }

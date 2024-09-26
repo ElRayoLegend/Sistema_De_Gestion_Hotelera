@@ -38,4 +38,5 @@ public class Reservation {
     private User user;
     @ManyToOne
     private Room room;
+    
 }

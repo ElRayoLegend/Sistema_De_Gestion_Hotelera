@@ -10,7 +10,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gestionelarca.system.DTO.UserLogin;
 import com.gestionelarca.system.DTO.UserRegisterDTO;
+import com.gestionelarca.system.model.HotelReport;
 import com.gestionelarca.system.model.User;
 import com.gestionelarca.system.service.UserService;
 import com.gestionelarca.system.utils.Rol;
@@ -98,43 +101,6 @@ public class UserController {
         }
     }
 
-    // @PostMapping("/register")
-    // public ResponseEntity<?> register(
-    //     @Valid @ModelAttribute UserRegisterDTO user,
-    //     BindingResult result) {
-    //     Map<String, Object> res = new HashMap<>();
-    //     if(result.hasErrors()){
-    //         List<String> errors = result.getFieldErrors().stream()
-    //         .map(error -> error.getDefaultMessage())
-    //         .collect(Collectors.toList());
-    //         res.put("message", "Error con las validaciones, por favor ingresa todos los campos");
-    //         res.put("Errors", errors);
-    //         return ResponseEntity.badRequest().body(res);
-    //     }
-    //     try {
-    //         Long id = null;
-    //         Rol rol = null;
-    //         User newUser = new User(
-    //             id,
-    //             user.getPhoneNumber(),
-    //             user.getName(),
-    //             user.getSurname(),
-    //             user.getUsername(),
-    //             user.getEmail(),
-    //             user.getPassword(),
-    //             rol
-    //         );
-    //         userService.register(newUser);
-    //         res.put("message", "Usuario guardado correctamente");
-    //         res.put("message", "Usuario recibido correctamente");
-    //         return ResponseEntity.ok().body(res);
-    //     } catch (Exception err) {
-    //         res.put("message", "Error al guardar el usuario, intente de nuevo más tarde");
-    //         res.put("error", err.getMessage());
-    //         return ResponseEntity.internalServerError().body(res);
-    //     }
-    // }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLogin user){
         Map<String, Object> res = new HashMap<>();
@@ -152,6 +118,22 @@ public class UserController {
             err.printStackTrace();
             res.put("message", "Error general al iniciar sesion");
             res.put("error", err);
+            return ResponseEntity.internalServerError().body(res);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id){
+        Map<String, String> res = new HashMap<>();
+        try {
+            User user = userService.getUser(id);
+            userService.deleteUser(user);
+            res.put("message", "Se elimino exitosamente");
+            return ResponseEntity.ok(res);
+        } catch (Exception err) {
+            System.out.println("Error, no se encontro el ID");
+            res.put("message", "Se guardo exitosamente");
+            res.put("error", err.getMessage());
             return ResponseEntity.internalServerError().body(res);
         }
     }

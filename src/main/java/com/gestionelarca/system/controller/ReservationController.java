@@ -108,4 +108,44 @@ public class ReservationController {
         }
 
     }
+
+    @GetMapping("/findUser/{idUser}")
+    public ResponseEntity<?> getReservationByUser(@PathVariable Long idUser) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+      
+            List<Reservation> reservation = reservationService.myReservation(idUser);
+            if (reservation == null || reservation.isEmpty()) {
+                res.put("message", "El usuario no tiene reservaciones");
+                return ResponseEntity.status(404).body(res);
+            } else {
+                res.put("message", "Reservacion no encontrada");
+                return ResponseEntity.ok(reservation);
+            }
+        } catch (Exception e) {
+            res.put("message", "Error al buscar la reservacion, intente de nuevo más tarde");
+            res.put("error", e.getMessage());
+            return ResponseEntity.internalServerError().body(res);
+        }
+    }
+
+    @GetMapping("/findHotel/{idHotel}")
+    public ResponseEntity<?> getReservationByHotel(@PathVariable Long idHotel) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+      
+            List<Reservation> reservation = reservationService.myReservation(idHotel);
+            if (reservation == null || reservation.isEmpty()) {
+                res.put("message", "El hotel no tiene reservaciones");
+                return ResponseEntity.status(404).body(res);
+            } else {
+                res.put("message", "Reservacion no encontrada");
+                return ResponseEntity.ok(reservation);
+            }
+        } catch (Exception e) {
+            res.put("message", "Error al buscar la reservacion, intente de nuevo más tarde");
+            res.put("error", e.getMessage());
+            return ResponseEntity.internalServerError().body(res);
+        }
+    }
 }

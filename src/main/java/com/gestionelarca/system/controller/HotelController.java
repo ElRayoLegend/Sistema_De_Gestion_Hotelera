@@ -1,5 +1,8 @@
 package com.gestionelarca.system.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.gestionelarca.system.model.Hotel;
 import com.gestionelarca.system.service.HotelService;
@@ -43,11 +44,14 @@ public class HotelController {
     public ResponseEntity<Map<String, String>> register(@RequestBody Hotel hotel) {
         Map<String, String> res = new HashMap<>();
         try {
+            
             hotelService.register(hotel);
             res.put("message", "Se guardo exitosamente");
             return ResponseEntity.ok(res);
 
         } catch (Exception err) {
+            System.out.println("Error, no se encontro el ID");
+            res.put("message", "Se guardo exitosamente");
             res.put("error", err.getMessage());
             return ResponseEntity.internalServerError().body(res);
         }

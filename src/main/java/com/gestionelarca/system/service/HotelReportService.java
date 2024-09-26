@@ -34,9 +34,13 @@ public class HotelReportService implements IHotelReportService {
     @Override
     public HotelReport saveHotelReport(HotelReportDTO hotelReportDTO) {
         try {
+            Timestamp dateReport = Timestamp.valueOf(hotelReportDTO.getDate());
+
             Hotel hotel = hotelService.getHotel(hotelReportDTO.getHotelId());
-            LocalDateTime dateTime = hotelReportDTO.getDate().atStartOfDay();
-            Timestamp dateReport = Timestamp.valueOf(dateTime);
+            if (hotel == null) {
+                throw new IllegalArgumentException("Hotel no encontrado con ID: " + hotelReportDTO.getHotelId());
+            }
+
             HotelReport hotelReport = new HotelReport(
                 null,
                 hotelReportDTO.getTotal_reservations(),
@@ -45,9 +49,17 @@ public class HotelReportService implements IHotelReportService {
                 dateReport,
                 hotel
             );
+
             return hotelRepository.save(hotelReport);
+        } catch (IllegalArgumentException e) {
+            // Captura errores específicos
+            System.err.println("Error: " + e.getMessage());
+            throw e; // Re-lanza la excepción
         } catch (Exception err) {
-            throw new IllegalArgumentException("Error al parsear las fechas", err);
+            // Captura excepciones generales
+            System.err.println("Error en saveHotelReport: " + err.getMessage());
+            err.printStackTrace(); // Imprimir el stack trace
+            throw new IllegalArgumentException("Error al guardar el informe del hotel", err);
         }
     }
 

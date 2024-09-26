@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gestionelarca.system.model.HotelReport;
 import com.gestionelarca.system.model.User;
 import com.gestionelarca.system.repository.UserRepository;
 import com.gestionelarca.system.service.IService.IUserService;
@@ -43,5 +44,10 @@ public class UserService implements IUserService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 }

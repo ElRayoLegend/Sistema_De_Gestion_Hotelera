@@ -32,6 +32,11 @@ public class ServiceReservationService implements IServiceReservationService {
     AdditionalServiceService additionalServiceService;
 
     @Override
+    public List<ServiceReservation> listRS(){
+        return serviceReservationRepository.findAll();
+    }
+
+    @Override
     public List<ServiceReservationResponseDTO> listByAdditionalService(Long id_Service) {
         AdditionalService additionalService = additionalServiceService.findService(id_Service);
         List<ServiceReservation> lServiceReservations = serviceReservationRepository.findByAdditionalService(additionalService);
