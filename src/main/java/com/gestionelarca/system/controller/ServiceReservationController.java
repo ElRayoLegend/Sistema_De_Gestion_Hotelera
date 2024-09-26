@@ -31,11 +31,11 @@ public class ServiceReservationController {
     @Autowired
     private ServiceReservationService serviceReservationService;
 
-    @GetMapping("/{id_Reservation}")
-    public ResponseEntity<?> additionalReservationsByReservation(@PathVariable Long id_Reservation) {
+    @GetMapping("/ByAdditionalService/{id_Service}")
+    public ResponseEntity<?> additionalReservationsByReservation(@PathVariable Long id_Service) {
         Map<String, Object> res = new HashMap<>();
         try{
-            List<ServiceReservationResponseDTO> reservations = serviceReservationService.listServiceReservation(id_Reservation);
+            List<ServiceReservationResponseDTO> reservations = serviceReservationService.listByAdditionalService(id_Service);
             if(reservations == null || reservations.isEmpty()){
                 res.put("message", "Aún no tienes asignaciones creadas");
                 return ResponseEntity.status(404).body(res);

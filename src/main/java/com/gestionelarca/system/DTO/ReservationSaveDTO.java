@@ -22,8 +22,6 @@ public class ReservationSaveDTO {
     private Status status;
     @NotNull(message = "No hay un usuario para reservar")
     private Long userId;
-    @NotNull(message = "No hay evento para reservar")
-    private Long eventId;
     @NotNull(message = "No hay habitacion para reservar")
     private Long roomId;
 }

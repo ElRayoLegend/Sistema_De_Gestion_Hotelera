@@ -3,7 +3,7 @@ package com.gestionelarca.system.DTO;
 import java.sql.Timestamp;
 
 import com.gestionelarca.system.model.Hotel;
-
+import com.gestionelarca.system.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +17,7 @@ public class EventResponseDTO {
     private Timestamp start;
     private String eventtype;
     private Hotel idHotel;
+    private User idUser;
 
 
 }

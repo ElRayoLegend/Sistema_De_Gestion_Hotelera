@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,22 +59,24 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
-        @Valid @ModelAttribute UserRegisterDTO user,
+        @Valid @RequestBody UserRegisterDTO user,
         BindingResult result
-        ) {
+    ) {
         Map<String, Object> res = new HashMap<>();
         if(result.hasErrors()){
             List<String> errors = result.getFieldErrors()
-            .stream()
-            .map(error -> error.getDefaultMessage())
-            .collect(Collectors.toList());
-            res.put("message", "Error con las validaciones, por favor ingresa todos los campos");
-            res.put("Errors", errors);
-            return ResponseEntity.badRequest().body(res);
+                .stream()
+                .map(error -> error.getDefaultMessage())
+                .collect(Collectors.toList());
+                res.put("message", "Error con las validaciones, por favor ingresa todos los campos");
+                res.put("Errors", errors);
+                return ResponseEntity.badRequest().body(res);
         }
         try {
+           
             Long id = null;
-            Rol rol = null;
+            Rol rol = Rol.valueOf(user.getRol().toUpperCase()); 
+
             User newUser = new User(
                 id,
                 user.getPhoneNumber(),
@@ -96,6 +97,43 @@ public class UserController {
             return ResponseEntity.internalServerError().body(res);
         }
     }
+
+    // @PostMapping("/register")
+    // public ResponseEntity<?> register(
+    //     @Valid @ModelAttribute UserRegisterDTO user,
+    //     BindingResult result) {
+    //     Map<String, Object> res = new HashMap<>();
+    //     if(result.hasErrors()){
+    //         List<String> errors = result.getFieldErrors().stream()
+    //         .map(error -> error.getDefaultMessage())
+    //         .collect(Collectors.toList());
+    //         res.put("message", "Error con las validaciones, por favor ingresa todos los campos");
+    //         res.put("Errors", errors);
+    //         return ResponseEntity.badRequest().body(res);
+    //     }
+    //     try {
+    //         Long id = null;
+    //         Rol rol = null;
+    //         User newUser = new User(
+    //             id,
+    //             user.getPhoneNumber(),
+    //             user.getName(),
+    //             user.getSurname(),
+    //             user.getUsername(),
+    //             user.getEmail(),
+    //             user.getPassword(),
+    //             rol
+    //         );
+    //         userService.register(newUser);
+    //         res.put("message", "Usuario guardado correctamente");
+    //         res.put("message", "Usuario recibido correctamente");
+    //         return ResponseEntity.ok().body(res);
+    //     } catch (Exception err) {
+    //         res.put("message", "Error al guardar el usuario, intente de nuevo más tarde");
+    //         res.put("error", err.getMessage());
+    //         return ResponseEntity.internalServerError().body(res);
+    //     }
+    // }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLogin user){

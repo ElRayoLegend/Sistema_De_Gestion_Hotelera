@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gestionelarca.system.DTO.EventsaveDTO;
-import com.gestionelarca.system.model.Event; 
+import com.gestionelarca.system.model.Event;
 import com.gestionelarca.system.model.Hotel;
+import com.gestionelarca.system.model.User;
 import com.gestionelarca.system.repository.EventRepository;
 import com.gestionelarca.system.service.IService.IEventService;
 
@@ -20,6 +21,8 @@ public class EventService   implements IEventService{
     EventRepository eventRepository;
     @Autowired
     HotelService hotelService;
+    @Autowired
+    UserService userService;
 
 
     @Override
@@ -40,6 +43,7 @@ public class EventService   implements IEventService{
             
             // Obtenemos el Hotel vinculado al evento
             Hotel hotel = hotelService.getHotel(eventsaveDTO.getIdHotel());
+            User user = userService.getUser(eventsaveDTO.getIdUser());
             
             Long idEvent = null;  // Esto lo manejaría la base de datos ya que usas IDENTITY
             Event event = new Event(
@@ -47,7 +51,8 @@ public class EventService   implements IEventService{
                 eventsaveDTO.getEventname(),
                 eventdate,
                 eventsaveDTO.getEventtype(),
-                hotel
+                hotel,
+                user
             );
             
             return eventRepository.save(event);

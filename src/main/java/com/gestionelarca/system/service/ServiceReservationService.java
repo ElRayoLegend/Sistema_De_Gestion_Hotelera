@@ -10,7 +10,8 @@ import com.gestionelarca.system.DTO.ServiceReservationDTO;
 import com.gestionelarca.system.DTO.ServiceReservationResponseDTO;
 import com.gestionelarca.system.DTO.ServiceReservationSaveDTO;
 import com.gestionelarca.system.model.AdditionalService;
-import com.gestionelarca.system.model.Reservation;
+import com.gestionelarca.system.model.Event;
+import com.gestionelarca.system.model.Room;
 import com.gestionelarca.system.model.ServiceReservation;
 import com.gestionelarca.system.repository.ServiceReservationRepository;
 import com.gestionelarca.system.service.IService.IServiceReservationService;
@@ -22,15 +23,18 @@ public class ServiceReservationService implements IServiceReservationService {
     ServiceReservationRepository serviceReservationRepository;
 
     @Autowired
-    ReservationService reservationService;
+    RoomService roomService;
+
+    @Autowired
+    EventService eventService;
 
     @Autowired
     AdditionalServiceService additionalServiceService;
 
     @Override
-    public List<ServiceReservationResponseDTO> listServiceReservation(Long id_Reservation) {
-        Reservation reservation = reservationService.seachReservations(id_Reservation);
-        List<ServiceReservation> lServiceReservations = serviceReservationRepository.findByReservation(reservation);
+    public List<ServiceReservationResponseDTO> listByAdditionalService(Long id_Service) {
+        AdditionalService additionalService = additionalServiceService.findService(id_Service);
+        List<ServiceReservation> lServiceReservations = serviceReservationRepository.findByAdditionalService(additionalService);
 
         return lServiceReservations
             .stream()
@@ -47,12 +51,14 @@ public class ServiceReservationService implements IServiceReservationService {
     public ServiceReservation saveServiceReservation(ServiceReservationSaveDTO serviceReservationSaveDTO) {
         try {
             
-            Reservation reservation = reservationService.seachReservations(serviceReservationSaveDTO.getId_Reservation());
+            Room room = roomService.getRoom(serviceReservationSaveDTO.getId_room());
+            Event event = eventService.getEvent(serviceReservationSaveDTO.getId_event());
             AdditionalService additionalService = additionalServiceService.findService(serviceReservationSaveDTO.getId_Service());
             
             ServiceReservation serviceReservation = new ServiceReservation(
                 null,
-                reservation,
+                room,
+                event,
                 additionalService,
                 serviceReservationSaveDTO.getAmount(),
                 serviceReservationSaveDTO.getSubtotal()
@@ -69,13 +75,15 @@ public class ServiceReservationService implements IServiceReservationService {
         if(serviceReservationRepository.existsById(id)) {
             ServiceReservation serviceReservation = findServiceReservation(id); // BUSCAR SERVICE RESERVATION
 
-            // BUSCAR RESERVACION Y SERVICIO ADICIONAL
-            Reservation reservation = reservationService.seachReservations(serviceReservationDTO.getId_Reservation());
+            // BUSCAR HABITACIÓN, EVENTO Y SERVICIO ADICIONAL
+            Room room = roomService.getRoom(serviceReservationDTO.getId_room());
+            Event event = eventService.getEvent(serviceReservationDTO.getId_event());
             AdditionalService additionalService = additionalServiceService.findService(serviceReservationDTO.getId_Service());
 
             serviceReservation.setAmount(serviceReservationDTO.getAmount());
             serviceReservation.setSubtotal(serviceReservationDTO.getSubtotal());
-            serviceReservation.setReservation(reservation);
+            serviceReservation.setRoom(room);
+            serviceReservation.setEvent(event);
             serviceReservation.setAdditionalService(additionalService);
 
             return serviceReservationRepository.save(serviceReservation);
@@ -90,14 +98,16 @@ public class ServiceReservationService implements IServiceReservationService {
     }
     
     private ServiceReservationResponseDTO responseDTO(ServiceReservation serviceReservation){
-        Reservation reservation = serviceReservation.getReservation();
+        Room room = serviceReservation.getRoom();
+        Event event = serviceReservation.getEvent();
         AdditionalService additionalService = serviceReservation.getAdditionalService();
 
        ServiceReservationResponseDTO dto = new ServiceReservationResponseDTO(
         serviceReservation.getIdServiceReservation(),
         serviceReservation.getSubtotal(),
         serviceReservation.getAmount(),
-        reservation,
+        room,
+        event,
         additionalService
        );
 

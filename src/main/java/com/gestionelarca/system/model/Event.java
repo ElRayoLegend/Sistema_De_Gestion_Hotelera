@@ -39,5 +39,7 @@ public class Event {
     @NotNull
     @ManyToOne
     private Hotel idHotel;
+    @ManyToOne
+    private User user;
 
 }

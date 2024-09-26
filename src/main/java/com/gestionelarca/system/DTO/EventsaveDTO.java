@@ -23,6 +23,8 @@ public class EventsaveDTO {
     //llave de id hotel 
     @NotNull
     private Long idHotel;
+    @NotNull
+    private Long idUser;
 
 
 }

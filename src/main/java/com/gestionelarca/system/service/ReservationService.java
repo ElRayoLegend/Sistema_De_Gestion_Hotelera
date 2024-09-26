@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.gestionelarca.system.DTO.ReservationResponseDTO;
 import com.gestionelarca.system.DTO.ReservationSaveDTO;
 import com.gestionelarca.system.DTO.UserClearDTO;
-import com.gestionelarca.system.model.Event;
 import com.gestionelarca.system.model.Reservation;
 import com.gestionelarca.system.model.Room;
 import com.gestionelarca.system.model.User;
@@ -28,9 +27,6 @@ public class ReservationService implements IReservationService{
 
     @Autowired
     RoomService roomService;
-
-    @Autowired
-    EventService eventService;
 
     @Override
     public List<Reservation> listReservations(){
@@ -73,8 +69,6 @@ public class ReservationService implements IReservationService{
             Timestamp date_endDate = Timestamp.valueOf(reservationDTO.getDate_end());
             //Obtenemos el usuario completo que viene en la solicitud (userId)
             User user = userService.getUser(reservationDTO.getUserId());
-            //Obtenemos el evento completo que viene en la solicitud (eventId)
-            Event event = eventService.getEvent(reservationDTO.getEventId());
             //Obtenemos la habitacion completa que viene en la solicitud (roomId)
             Room room = roomService.getRoom(reservationDTO.getRoomId());
             Reservation reservation = new Reservation(
@@ -83,8 +77,7 @@ public class ReservationService implements IReservationService{
                 date_endDate,
                 reservationDTO.getStatus(),
                 user,
-                room,
-                event        
+                room     
             );
             return reservationRepository.save(reservation);
     }
@@ -103,8 +96,7 @@ public class ReservationService implements IReservationService{
             reservation.getDate_end(),
             reservation.getStatus(),
             userDTO,
-            reservation.getRoom(),
-            reservation.getEvent()
+            reservation.getRoom()
         );
 
         return dto;

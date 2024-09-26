@@ -8,7 +8,7 @@ import com.gestionelarca.system.DTO.ServiceReservationSaveDTO;
 import com.gestionelarca.system.model.ServiceReservation;
 
 public interface IServiceReservationService {
-    List<ServiceReservationResponseDTO> listServiceReservation(Long id_Reservation);
+    List<ServiceReservationResponseDTO> listByAdditionalService(Long id_Service);
 
     ServiceReservation findServiceReservation(Long id);
 

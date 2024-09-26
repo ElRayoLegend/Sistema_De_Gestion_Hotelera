@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,11 +20,12 @@ public class ServiceReservation {
     private Long idServiceReservation;
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_Reservation")
-    private Reservation reservation;
+    private Room room;
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_Service")
+    private Event event;
+    @NotNull
+    @ManyToOne
     private AdditionalService additionalService;
     @NotNull
     private Integer amount;

@@ -2,7 +2,6 @@ package com.gestionelarca.system.DTO;
 
 import java.sql.Timestamp;
 
-import com.gestionelarca.system.model.Event;
 import com.gestionelarca.system.model.Room;
 import com.gestionelarca.system.utils.Status;
 
@@ -20,6 +19,5 @@ public class ReservationResponseDTO {
     private Status status;
     private UserClearDTO user;
     private Room room;
-    private Event event;
 
 }
